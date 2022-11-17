@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2021 at 07:00 PM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 7.4.16
+-- Generation Time: Nov 17, 2022 at 07:54 PM
+-- Server version: 8.0.31
+-- PHP Version: 7.4.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `access` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `access` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -54,10 +54,10 @@ INSERT INTO `admins` (`id`, `name`, `email`, `username`, `email_verified_at`, `i
 --
 
 CREATE TABLE `admin_password_resets` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `id` bigint UNSIGNED NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -69,10 +69,10 @@ CREATE TABLE `admin_password_resets` (
 --
 
 CREATE TABLE `categories` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `name` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(1) NOT NULL DEFAULT 0 COMMENT '1 => Active , 2 => Pending',
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` int NOT NULL DEFAULT '0' COMMENT '1 => Active , 2 => Pending',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -84,10 +84,10 @@ CREATE TABLE `categories` (
 --
 
 CREATE TABLE `certificates` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `act` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `shortcodes` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `act` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shortcodes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -106,19 +106,19 @@ INSERT INTO `certificates` (`id`, `act`, `body`, `shortcodes`, `created_at`, `up
 --
 
 CREATE TABLE `coupons` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `details` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `amount_type` int(1) NOT NULL COMMENT '1 = percentage, 2 = neat amount',
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `details` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount_type` int NOT NULL COMMENT '1 = percentage, 2 = neat amount',
   `coupon_amount` decimal(18,8) NOT NULL,
   `min_order_amount` decimal(18,8) DEFAULT NULL,
-  `coupon_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `use_limit` int(11) DEFAULT NULL,
-  `usage_per_user` int(11) DEFAULT NULL,
+  `coupon_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `use_limit` int DEFAULT NULL,
+  `usage_per_user` int DEFAULT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
-  `status` int(1) NOT NULL DEFAULT 0 COMMENT '1 = active, 0 = inactive',
-  `exam_id` int(11) NOT NULL,
+  `status` int NOT NULL DEFAULT '0' COMMENT '1 = active, 0 = inactive',
+  `exam_id` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -130,9 +130,9 @@ CREATE TABLE `coupons` (
 --
 
 CREATE TABLE `coupon_users` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `coupon_id` int(11) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` int NOT NULL,
+  `coupon_id` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -144,22 +144,22 @@ CREATE TABLE `coupon_users` (
 --
 
 CREATE TABLE `deposits` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `method_code` int(10) UNSIGNED NOT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `user_id` int UNSIGNED NOT NULL,
+  `method_code` int UNSIGNED NOT NULL,
   `amount` decimal(18,8) NOT NULL,
-  `method_currency` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `method_currency` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `charge` decimal(18,8) NOT NULL,
   `rate` decimal(18,8) NOT NULL,
-  `final_amo` decimal(18,8) DEFAULT 0.00000000,
-  `detail` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `btc_amo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `btc_wallet` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `trx` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `try` int(11) NOT NULL DEFAULT 0,
-  `exam_id` int(11) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1=>success, 2=>pending, 3=>cancel',
-  `admin_feedback` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `final_amo` decimal(18,8) DEFAULT '0.00000000',
+  `detail` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `btc_amo` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `btc_wallet` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trx` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `try` int NOT NULL DEFAULT '0',
+  `exam_id` int DEFAULT NULL,
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '1=>success, 2=>pending, 3=>cancel',
+  `admin_feedback` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -171,15 +171,15 @@ CREATE TABLE `deposits` (
 --
 
 CREATE TABLE `email_sms_templates` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `act` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `subj` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_body` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sms_body` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shortcodes` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_status` tinyint(4) NOT NULL DEFAULT 1,
-  `sms_status` tinyint(4) NOT NULL DEFAULT 1,
+  `id` int UNSIGNED NOT NULL,
+  `act` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subj` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `sms_body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `shortcodes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_status` tinyint NOT NULL DEFAULT '1',
+  `sms_status` tinyint NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -217,24 +217,24 @@ INSERT INTO `email_sms_templates` (`id`, `act`, `name`, `subj`, `email_body`, `s
 --
 
 CREATE TABLE `exams` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `subject_id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `instruction` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `subject_id` int UNSIGNED NOT NULL,
+  `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `instruction` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
-  `negative_marking` int(10) UNSIGNED DEFAULT 0 COMMENT '1 = yes, 0 = no',
-  `reduce_mark` int(10) UNSIGNED DEFAULT NULL COMMENT 'mark will be reduce for wrong answer',
-  `pass_percentage` int(10) UNSIGNED NOT NULL COMMENT 'pass mark percentage for exam',
-  `duration` int(10) UNSIGNED NOT NULL COMMENT 'exam duration time',
-  `totalmark` int(10) UNSIGNED NOT NULL COMMENT 'exam total mark',
-  `value` int(10) UNSIGNED NOT NULL COMMENT '1=> paid, 2 => unpaid',
-  `exam_fee` int(10) UNSIGNED DEFAULT NULL COMMENT 'exam fee',
-  `random_question` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'questions will be random or not, 1=yes, 0= no',
-  `option_suffle` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'question options will be suffle or , not , 1 = yes, 0= no',
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `question_type` int(1) DEFAULT NULL COMMENT '1 => MCQ, 2 => Written',
-  `status` int(1) NOT NULL COMMENT '1 = active, 2 =inactive',
+  `negative_marking` int UNSIGNED DEFAULT '0' COMMENT '1 = yes, 0 = no',
+  `reduce_mark` int UNSIGNED DEFAULT NULL COMMENT 'mark will be reduce for wrong answer',
+  `pass_percentage` int UNSIGNED NOT NULL COMMENT 'pass mark percentage for exam',
+  `duration` int UNSIGNED NOT NULL COMMENT 'exam duration time',
+  `totalmark` int UNSIGNED NOT NULL COMMENT 'exam total mark',
+  `value` int UNSIGNED NOT NULL COMMENT '1=> paid, 2 => unpaid',
+  `exam_fee` int UNSIGNED DEFAULT NULL COMMENT 'exam fee',
+  `random_question` int UNSIGNED NOT NULL DEFAULT '0' COMMENT 'questions will be random or not, 1=yes, 0= no',
+  `option_suffle` int UNSIGNED NOT NULL DEFAULT '0' COMMENT 'question options will be suffle or , not , 1 = yes, 0= no',
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `question_type` int DEFAULT NULL COMMENT '1 => MCQ, 2 => Written',
+  `status` int NOT NULL COMMENT '1 = active, 2 =inactive',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -246,15 +246,15 @@ CREATE TABLE `exams` (
 --
 
 CREATE TABLE `extensions` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `act` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `script` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shortcode` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'object',
-  `support` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'help section',
-  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `id` int UNSIGNED NOT NULL,
+  `act` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `script` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `shortcode` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'object',
+  `support` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'help section',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
   `deleted_at` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -278,12 +278,12 @@ INSERT INTO `extensions` (`id`, `act`, `name`, `description`, `image`, `script`,
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` bigint UNSIGNED NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -293,9 +293,9 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `frontends` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `data_keys` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data_values` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `data_keys` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `data_values` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -305,8 +305,8 @@ CREATE TABLE `frontends` (
 --
 
 INSERT INTO `frontends` (`id`, `data_keys`, `data_values`, `created_at`, `updated_at`) VALUES
-(40, 'banner.content', '{\"has_image\":\"1\",\"heading\":\"The Most Popular Online Exam Site\",\"sub_heading\":\"We Will Open The World Of Knowledge For You !\",\"button_1_text\":\"Get Started\",\"button_1_link\":\"\\/user\\/dashboard\",\"button_2_text\":\"Learn More\",\"button_2_link\":\"\\/login\",\"background_image\":\"6092589a56d991620203674.jpg\"}', '2021-03-20 04:26:41', '2021-05-22 16:49:22'),
-(41, 'feature.element', '{\"heading\":\"Join Us\",\"sub_heading\":\"Welcome to the ExaLab\",\"short_details\":\"Join to our ExaLab community. Get the latest update and Our support team are always by your side and provide you with the best possible support!\"}', '2021-03-20 04:38:12', '2021-05-22 16:21:40'),
+(40, 'banner.content', '{\"has_image\":\"1\",\"heading\":\"Eureka !!! Rewarding Academic Excellence.\",\"sub_heading\":\"We Will Open The World Of Knowledge For You !\",\"button_1_text\":\"Get Started\",\"button_1_link\":\"\\/user\\/dashboard\",\"button_2_text\":\"Learn More\",\"button_2_link\":\"\\/login\",\"background_image\":\"6092589a56d991620203674.jpg\"}', '2021-03-20 04:26:41', '2022-11-15 21:53:11'),
+(41, 'feature.element', '{\"heading\":\"Join Us\",\"sub_heading\":\"Welcome to the Eureka\",\"short_details\":\"Join to our Eureka community. Get the latest update and Our support team are always by your side and provide you with the best possible support!\"}', '2021-03-20 04:38:12', '2022-11-15 21:59:58'),
 (42, 'feature.element', '{\"heading\":\"Attend Your Examination\",\"sub_heading\":\"Subject &amp; Resources\",\"short_details\":\"Choose your subject and question bank with lots of questions. And get ready to give the exam. The random questions you you will get in your exams.\"}', '2021-03-20 04:38:27', '2021-05-22 16:18:31'),
 (43, 'feature.element', '{\"heading\":\"Get Support\",\"sub_heading\":\"Support &amp; Service\",\"short_details\":\"Our Support team are at your service. If need anything, request or support! We are available for You!\"}', '2021-03-20 04:39:01', '2021-05-22 16:12:41'),
 (44, 'popular.content', '{\"heading\":\"Our Most Popular Subjects\"}', '2021-03-20 05:10:04', '2021-03-20 05:10:04'),
@@ -359,18 +359,18 @@ INSERT INTO `frontends` (`id`, `data_keys`, `data_values`, `created_at`, `update
 --
 
 CREATE TABLE `gateways` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `code` int(11) DEFAULT NULL,
-  `alias` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NULL',
-  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
-  `parameters` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `supported_currencies` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `crypto` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: fiat currency, 1: crypto currency',
-  `extra` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `input_form` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `code` int DEFAULT NULL,
+  `alias` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NULL',
+  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `parameters` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `supported_currencies` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `crypto` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: fiat currency, 1: crypto currency',
+  `extra` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `input_form` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -410,19 +410,19 @@ INSERT INTO `gateways` (`id`, `code`, `alias`, `image`, `name`, `status`, `param
 --
 
 CREATE TABLE `gateway_currencies` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `currency` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `symbol` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `method_code` int(11) DEFAULT NULL,
-  `gateway_alias` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `currency` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `symbol` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `method_code` int DEFAULT NULL,
+  `gateway_alias` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `min_amount` decimal(18,8) NOT NULL,
   `max_amount` decimal(18,8) NOT NULL,
-  `percent_charge` decimal(5,2) NOT NULL DEFAULT 0.00,
-  `fixed_charge` decimal(18,8) NOT NULL DEFAULT 0.00000000,
-  `rate` decimal(18,8) NOT NULL DEFAULT 0.00000000,
-  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `gateway_parameter` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `percent_charge` decimal(5,2) NOT NULL DEFAULT '0.00',
+  `fixed_charge` decimal(18,8) NOT NULL DEFAULT '0.00000000',
+  `rate` decimal(18,8) NOT NULL DEFAULT '0.00000000',
+  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gateway_parameter` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -434,25 +434,25 @@ CREATE TABLE `gateway_currencies` (
 --
 
 CREATE TABLE `general_settings` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `sitename` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cur_text` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'currency text',
-  `cur_sym` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'currency symbol',
-  `email_from` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email_template` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sms_api` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `base_color` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `secondary_color` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `mail_config` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'email configuration',
-  `ev` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'email verification, 0 - dont check, 1 - check',
-  `en` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'email notification, 0 - dont send, 1 - send',
-  `sv` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'sms verication, 0 - dont check, 1 - check',
-  `sn` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'sms notification, 0 - dont send, 1 - send',
-  `registration` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: Off	, 1: On',
-  `social_login` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'social login',
-  `social_credential` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `active_template` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sys_version` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `sitename` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cur_text` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'currency text',
+  `cur_sym` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'currency symbol',
+  `email_from` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_template` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `sms_api` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `base_color` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `secondary_color` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mail_config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'email configuration',
+  `ev` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'email verification, 0 - dont check, 1 - check',
+  `en` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'email notification, 0 - dont send, 1 - send',
+  `sv` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'sms verication, 0 - dont check, 1 - check',
+  `sn` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'sms notification, 0 - dont send, 1 - send',
+  `registration` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: Off	, 1: On',
+  `social_login` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'social login',
+  `social_credential` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `active_template` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sys_version` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -462,7 +462,7 @@ CREATE TABLE `general_settings` (
 --
 
 INSERT INTO `general_settings` (`id`, `sitename`, `cur_text`, `cur_sym`, `email_from`, `email_template`, `sms_api`, `base_color`, `secondary_color`, `mail_config`, `ev`, `en`, `sv`, `sn`, `registration`, `social_login`, `social_credential`, `active_template`, `sys_version`, `created_at`, `updated_at`) VALUES
-(1, 'Exalab', 'USD', '$', 'demo@viserlab.com', '<table style=\"color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(0, 23, 54); text-decoration-style: initial; text-decoration-color: initial;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" bgcolor=\"#001736\"><tbody><tr><td valign=\"top\" align=\"center\"><table class=\"mobile-shell\" width=\"650\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td class=\"td container\" style=\"width: 650px; min-width: 650px; font-size: 0pt; line-height: 0pt; margin: 0px; font-weight: normal; padding: 55px 0px;\"><div style=\"text-align: center;\"><img src=\"https://i.imgur.com/C9IS7Z1.png\" style=\"height: 240 !important;width: 338px;margin-bottom: 20px;\"></div><table style=\"width: 650px; margin: 0px auto;\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"padding-bottom: 10px;\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td class=\"tbrr p30-15\" style=\"padding: 60px 30px; border-radius: 26px 26px 0px 0px;\" bgcolor=\"#000036\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"color: rgb(255, 255, 255); font-family: Muli, Arial, sans-serif; font-size: 20px; line-height: 46px; padding-bottom: 25px; font-weight: bold;\">Hi {{name}} ,</td></tr><tr><td style=\"color: rgb(193, 205, 220); font-family: Muli, Arial, sans-serif; font-size: 20px; line-height: 30px; padding-bottom: 25px;\">{{message}}</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table><table style=\"width: 650px; margin: 0px auto;\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td class=\"p30-15 bbrr\" style=\"padding: 50px 30px; border-radius: 0px 0px 26px 26px;\" bgcolor=\"#000036\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td class=\"text-footer1 pb10\" style=\"color: rgb(0, 153, 255); font-family: Muli, Arial, sans-serif; font-size: 18px; line-height: 30px; text-align: center; padding-bottom: 10px;\">© 2021 ViserLab. All Rights Reserved.</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>', 'https://api.infobip.com/api/v3/sendsms/plain?user=viserlab&password=26289099&sender=ViserLab&SMSText={{message}}&GSM={{number}}&type=longSMS', '2ecc71', '040a2c', '{\"name\":\"php\"}', 1, 1, 1, 1, 1, 0, '{\"google_client_id\":\"53929591142-l40gafo7efd9onfe6tj545sf9g7tv15t.apps.googleusercontent.com\",\"google_client_secret\":\"BRdB3np2IgYLiy4-bwMcmOwN\",\"fb_client_id\":\"277229062999748\",\"fb_client_secret\":\"1acfc850f73d1955d14b282938585122\"}', 'basic', NULL, NULL, '2021-05-23 08:18:48');
+(1, 'Eureka', 'NGN', '₦', 'demo@viserlab.com', '<table style=\"color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(0, 23, 54); text-decoration-style: initial; text-decoration-color: initial;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" bgcolor=\"#001736\"><tbody><tr><td valign=\"top\" align=\"center\"><table class=\"mobile-shell\" width=\"650\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td class=\"td container\" style=\"width: 650px; min-width: 650px; font-size: 0pt; line-height: 0pt; margin: 0px; font-weight: normal; padding: 55px 0px;\"><div style=\"text-align: center;\"><img src=\"https://i.imgur.com/C9IS7Z1.png\" style=\"height: 240 !important;width: 338px;margin-bottom: 20px;\"></div><table style=\"width: 650px; margin: 0px auto;\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"padding-bottom: 10px;\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td class=\"tbrr p30-15\" style=\"padding: 60px 30px; border-radius: 26px 26px 0px 0px;\" bgcolor=\"#000036\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"color: rgb(255, 255, 255); font-family: Muli, Arial, sans-serif; font-size: 20px; line-height: 46px; padding-bottom: 25px; font-weight: bold;\">Hi {{name}} ,</td></tr><tr><td style=\"color: rgb(193, 205, 220); font-family: Muli, Arial, sans-serif; font-size: 20px; line-height: 30px; padding-bottom: 25px;\">{{message}}</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table><table style=\"width: 650px; margin: 0px auto;\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td class=\"p30-15 bbrr\" style=\"padding: 50px 30px; border-radius: 0px 0px 26px 26px;\" bgcolor=\"#000036\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td class=\"text-footer1 pb10\" style=\"color: rgb(0, 153, 255); font-family: Muli, Arial, sans-serif; font-size: 18px; line-height: 30px; text-align: center; padding-bottom: 10px;\">© 2021 ViserLab. All Rights Reserved.</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>', 'https://api.infobip.com/api/v3/sendsms/plain?user=viserlab&password=26289099&sender=ViserLab&SMSText={{message}}&GSM={{number}}&type=longSMS', '091ae1', '040a2c', '{\"name\":\"php\"}', 1, 1, 1, 1, 1, 0, '{\"google_client_id\":\"53929591142-l40gafo7efd9onfe6tj545sf9g7tv15t.apps.googleusercontent.com\",\"google_client_secret\":\"BRdB3np2IgYLiy4-bwMcmOwN\",\"fb_client_id\":\"277229062999748\",\"fb_client_secret\":\"1acfc850f73d1955d14b282938585122\"}', 'basic', NULL, NULL, '2022-11-15 21:51:48');
 
 -- --------------------------------------------------------
 
@@ -471,12 +471,12 @@ INSERT INTO `general_settings` (`id`, `sitename`, `cur_text`, `cur_sym`, `email_
 --
 
 CREATE TABLE `languages` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `text_align` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0: left to right text align, 1: right to left text align',
-  `is_default` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0: not default language, 1: default language',
+  `id` int UNSIGNED NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `text_align` tinyint NOT NULL DEFAULT '0' COMMENT '0: left to right text align, 1: right to left text align',
+  `is_default` tinyint NOT NULL DEFAULT '0' COMMENT '0: not default language, 1: default language',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -496,9 +496,9 @@ INSERT INTO `languages` (`id`, `name`, `code`, `icon`, `text_align`, `is_default
 --
 
 CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -537,10 +537,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `options` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `question_id` int(10) UNSIGNED NOT NULL,
-  `option` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `correct_ans` int(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '1 = yes, 0 = No',
+  `id` bigint UNSIGNED NOT NULL,
+  `question_id` int UNSIGNED NOT NULL,
+  `option` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `correct_ans` int UNSIGNED NOT NULL DEFAULT '0' COMMENT '1 = yes, 0 = No',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -552,12 +552,12 @@ CREATE TABLE `options` (
 --
 
 CREATE TABLE `pages` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tempname` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'template name',
-  `secs` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `is_default` int(11) NOT NULL DEFAULT 0,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tempname` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'template name',
+  `secs` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `is_default` int NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -577,8 +577,8 @@ INSERT INTO `pages` (`id`, `name`, `slug`, `tempname`, `secs`, `is_default`, `cr
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -589,12 +589,12 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `questions` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `exam_id` int(10) UNSIGNED NOT NULL,
-  `question` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `exam_id` int UNSIGNED NOT NULL,
+  `question` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `marks` double UNSIGNED NOT NULL,
-  `written_ans` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'when exam type is written this field is fillable',
-  `status` int(1) NOT NULL COMMENT '1 = Active, 2 = Pending',
+  `written_ans` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'when exam type is written this field is fillable',
+  `status` int NOT NULL COMMENT '1 = Active, 2 = Pending',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -606,13 +606,13 @@ CREATE TABLE `questions` (
 --
 
 CREATE TABLE `results` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `exam_id` int(11) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` int NOT NULL,
+  `exam_id` int NOT NULL,
   `result_mark` double NOT NULL,
-  `total_correct_ans` int(11) NOT NULL,
-  `total_wrong_ans` int(11) NOT NULL,
-  `result_status` int(1) NOT NULL COMMENT '1 = passed, 0 = failed, 2="attend"',
+  `total_correct_ans` int NOT NULL,
+  `total_wrong_ans` int NOT NULL,
+  `result_status` int NOT NULL COMMENT '1 = passed, 0 = failed, 2="attend"',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -624,13 +624,13 @@ CREATE TABLE `results` (
 --
 
 CREATE TABLE `subjects` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `name` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `short_details` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL,
-  `is_popular` int(11) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `category_id` int NOT NULL,
+  `name` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `short_details` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` int NOT NULL,
+  `is_popular` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -642,8 +642,8 @@ CREATE TABLE `subjects` (
 --
 
 CREATE TABLE `subscribers` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -655,9 +655,9 @@ CREATE TABLE `subscribers` (
 --
 
 CREATE TABLE `support_attachments` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `support_message_id` int(11) NOT NULL,
-  `attachment` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `support_message_id` int NOT NULL,
+  `attachment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -669,10 +669,10 @@ CREATE TABLE `support_attachments` (
 --
 
 CREATE TABLE `support_messages` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `supportticket_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin_id` int(11) NOT NULL DEFAULT 0,
-  `message` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `supportticket_id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin_id` int NOT NULL DEFAULT '0',
+  `message` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -684,13 +684,13 @@ CREATE TABLE `support_messages` (
 --
 
 CREATE TABLE `support_tickets` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(91) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ticket` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `subject` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint(4) NOT NULL COMMENT '0: Open, 1: Answered, 2: Replied, 3: Closed',
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(91) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ticket` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subject` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint NOT NULL COMMENT '0: Open, 1: Answered, 2: Replied, 3: Closed',
   `last_reply` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -703,14 +703,14 @@ CREATE TABLE `support_tickets` (
 --
 
 CREATE TABLE `transactions` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `amount` decimal(18,8) NOT NULL DEFAULT 0.00000000,
-  `charge` decimal(18,8) NOT NULL DEFAULT 0.00000000,
-  `post_balance` decimal(18,8) NOT NULL DEFAULT 0.00000000,
-  `trx_type` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `trx` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `details` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` int DEFAULT NULL,
+  `amount` decimal(18,8) NOT NULL DEFAULT '0.00000000',
+  `charge` decimal(18,8) NOT NULL DEFAULT '0.00000000',
+  `post_balance` decimal(18,8) NOT NULL DEFAULT '0.00000000',
+  `trx_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trx` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `details` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -722,28 +722,28 @@ CREATE TABLE `transactions` (
 --
 
 CREATE TABLE `users` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `firstname` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `lastname` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(90) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mobile` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ref_by` int(11) DEFAULT NULL,
-  `balance` decimal(18,8) NOT NULL DEFAULT 0.00000000,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(91) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'contains full address',
-  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0: banned, 1: active',
-  `ev` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: email unverified, 1: email verified',
-  `sv` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: sms unverified, 1: sms verified',
-  `ver_code` varchar(91) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'stores verification code',
+  `id` bigint UNSIGNED NOT NULL,
+  `firstname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lastname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(90) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ref_by` int DEFAULT NULL,
+  `balance` decimal(18,8) NOT NULL DEFAULT '0.00000000',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(91) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'contains full address',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0: banned, 1: active',
+  `ev` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: email unverified, 1: email verified',
+  `sv` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: sms unverified, 1: sms verified',
+  `ver_code` varchar(91) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'stores verification code',
   `ver_code_send_at` datetime DEFAULT NULL COMMENT 'verification send time',
-  `ts` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: 2fa off, 1: 2fa on',
-  `tv` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0: 2fa unverified, 1: 2fa verified',
-  `tsc` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `provider_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ts` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0: 2fa off, 1: 2fa on',
+  `tv` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0: 2fa unverified, 1: 2fa verified',
+  `tsc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -755,16 +755,16 @@ CREATE TABLE `users` (
 --
 
 CREATE TABLE `user_logins` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `user_ip` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `location` varchar(91) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `browser` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `os` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `longitude` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `latitude` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country_code` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` int NOT NULL,
+  `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `location` varchar(91) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `browser` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `os` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `longitude` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `latitude` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country_code` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -776,19 +776,19 @@ CREATE TABLE `user_logins` (
 --
 
 CREATE TABLE `withdrawals` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `method_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `method_id` int UNSIGNED NOT NULL,
+  `user_id` int UNSIGNED NOT NULL,
   `amount` decimal(18,8) NOT NULL,
-  `currency` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `currency` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `rate` decimal(18,8) NOT NULL,
   `charge` decimal(18,8) NOT NULL,
-  `trx` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `final_amount` decimal(18,8) NOT NULL DEFAULT 0.00000000,
+  `trx` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `final_amount` decimal(18,8) NOT NULL DEFAULT '0.00000000',
   `after_charge` decimal(18,8) NOT NULL,
-  `withdraw_information` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '1=>success, 2=>pending, 3=>cancel,  ',
-  `admin_feedback` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `withdraw_information` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status` tinyint NOT NULL DEFAULT '0' COMMENT '1=>success, 2=>pending, 3=>cancel,  ',
+  `admin_feedback` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -800,19 +800,19 @@ CREATE TABLE `withdrawals` (
 --
 
 CREATE TABLE `withdraw_methods` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `min_limit` decimal(18,8) DEFAULT NULL,
-  `max_limit` decimal(18,8) NOT NULL DEFAULT 0.00000000,
-  `delay` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `max_limit` decimal(18,8) NOT NULL DEFAULT '0.00000000',
+  `delay` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fixed_charge` decimal(18,8) DEFAULT NULL,
   `rate` decimal(18,8) DEFAULT NULL,
   `percent_charge` decimal(5,2) DEFAULT NULL,
-  `currency` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_data` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `currency` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -824,15 +824,15 @@ CREATE TABLE `withdraw_methods` (
 --
 
 CREATE TABLE `written_previews` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `exam_id` int(11) NOT NULL,
-  `question_id` int(11) DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
-  `question` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `answer` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `exam_id` int NOT NULL,
+  `question_id` int DEFAULT NULL,
+  `user_id` int NOT NULL,
+  `question` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `given_mark` double DEFAULT NULL,
-  `correct_ans` int(1) DEFAULT NULL COMMENT '1 = prove correct ans, 0 = not provide\r\n',
-  `status` int(1) NOT NULL DEFAULT 0 COMMENT '1 = reviewed, 0 = not reviewed, "2" => ''attend''',
+  `correct_ans` int DEFAULT NULL COMMENT '1 = prove correct ans, 0 = not provide\r\n',
+  `status` int NOT NULL DEFAULT '0' COMMENT '1 = reviewed, 0 = not reviewed, "2" => ''attend''',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1043,193 +1043,193 @@ ALTER TABLE `written_previews`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `admin_password_resets`
 --
 ALTER TABLE `admin_password_resets`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `certificates`
 --
 ALTER TABLE `certificates`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `coupon_users`
 --
 ALTER TABLE `coupon_users`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `deposits`
 --
 ALTER TABLE `deposits`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `email_sms_templates`
 --
 ALTER TABLE `email_sms_templates`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=221;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=221;
 
 --
 -- AUTO_INCREMENT for table `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `extensions`
 --
 ALTER TABLE `extensions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `frontends`
 --
 ALTER TABLE `frontends`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `gateways`
 --
 ALTER TABLE `gateways`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `gateway_currencies`
 --
 ALTER TABLE `gateway_currencies`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `general_settings`
 --
 ALTER TABLE `general_settings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `results`
 --
 ALTER TABLE `results`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `subscribers`
 --
 ALTER TABLE `subscribers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `support_attachments`
 --
 ALTER TABLE `support_attachments`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `support_messages`
 --
 ALTER TABLE `support_messages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `support_tickets`
 --
 ALTER TABLE `support_tickets`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_logins`
 --
 ALTER TABLE `user_logins`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `withdrawals`
 --
 ALTER TABLE `withdrawals`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `withdraw_methods`
 --
 ALTER TABLE `withdraw_methods`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `written_previews`
 --
 ALTER TABLE `written_previews`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
