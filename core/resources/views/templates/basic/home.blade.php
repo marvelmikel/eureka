@@ -8,8 +8,11 @@
         <div class="row justify-content-center align-items-center mb-30-none">
             <div class="col-xl-10 text-center mb-30">
                 <div class="banner-content">
+                  <div class="banner-text">
                     <h1 class="title text--base">{{__($banner->heading)}}</h1>
+                  </div>
                     <h3 class="sub-title text-white">{{__($banner->sub_heading)}}</h3>
+                  
                     <div class="banner-btn">
                         <a href="{{url($banner->button_1_link)}}" class="btn--base">{{__($banner->button_1_text)}}</a>
                         <a href="{{url($banner->button_2_link)}}" class="btn--base active">{{__($banner->button_2_text)}}</a>
